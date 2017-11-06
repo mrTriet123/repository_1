@@ -1,0 +1,63 @@
+.fix-nt{
+    padding: 50px 20px 20px 20px !important;
+}
+
+h2 {
+    font-weight: bold;
+    margin: 0px;
+}
+
+h1 {
+    margin:0px;
+    padding:0px;
+    color: blue;
+    font-weight: bold;
+    font-size: 55px;
+}
+
+p{
+    color: #9c9c9c;
+}
+
+.info {
+  padding: 40px 0px;
+}
+
+button {
+    padding: 10px 50px;
+    font-size: 22px;
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    button {
+        padding: 6px 30px;
+        font-size: 15px;
+    }
+    h1 {
+        font-size: 35px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+}

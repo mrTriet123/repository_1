@@ -1,0 +1,110 @@
+<!-- BEGIN HEADER -->
+<div class="page-header navbar">
+<!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner container-fluid ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo pull-left">
+            <a [routerLink]="['/home']" ui-sref="dashboard">
+                <!--<div class="logo">SPINTABLE</div>-->
+                <img alt="" src="{{globals.imagePath}}/logo.png" style="width:52px;height: 52px;margin-top:10px;margin-left:-10px;float:left;"/>
+                <div style="color:#FFFFFF;margin-top:28px;float:left">SPINTABLE</div>
+            </a>    
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a *ngIf="isLogin()" href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN HEADER SEARCH BOX -->
+            <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+<!--                 <form *ngIf="isLogin()" class="search-form search-form-expanded" action="#" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." name="query">
+                    <span class="input-group-btn">
+                        <a href="javascript:;" class="btn submit">
+                            <i class="icon-magnifier"></i>
+                        </a>
+                    </span>
+                </div>
+            </form> -->
+            <!-- END HEADER SEARCH BOX -->
+                    <!-- BEGIN PAGE TOP -->
+        <div class="page-top pull-right">
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right" *ngIf="isLogin()">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                        <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span *ngIf="paginator?.total_count != 0" class="badge badge-default"> {{ paginator?.total_count }} </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3>
+                                    <span class="bold">{{ paginator?.total_count }} pending</span> notifications</h3>
+                                <a href="#">view all</a>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 274px;" data-handle-color="#637283">
+                                    <li *ngFor="let notif of notif_list">
+                                        <a (click)="getOrderInformation(notif.reservable_id, notif.notification_id)">
+                                            <span class="time">{{ notif.created_at }}</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-urgent"> 
+                                                </span> {{ notif.description }} </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END NOTIFICATION DROPDOWN -->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-user">
+                        <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <img alt="" class="img-circle" src="{{globals.imagePath}}/avatar8.jpg" />
+                            <span class="username username-hide-on-mobile">{{nameAccount}}</span>
+                        </a>
+                        
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown">
+                        <a [routerLink]="['/login']" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown">
+                            <i class="icon-logout"></i>
+                        </a>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                </ul>
+                <ul class="nav navbar-nav pull-right" *ngIf="!isLogin() && isUrl('/home')">
+                    <li class="dropdown dropdown-task">
+                        <a [routerLink]="['/login']" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <span style="color: white;font-weight: 600;"> Login </span>
+                        </a>
+                    </li>
+                    <li class="dropdown dropdown-task" style="border-left: 1px solid white;">
+                        <a [routerLink]="['/register']" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <span style="color: white;font-weight: 600;"> Be a Partner </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right" *ngIf="!isLogin() && isUrl('/register')">
+                    <li class="dropdown dropdown-task">
+                        <a [routerLink]="['/home']" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <span style="color: white;font-weight: 600;"> About the App </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END PAGE TOP -->
+    </div>
+<!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+
+
+<fx-modal #modal></fx-modal>

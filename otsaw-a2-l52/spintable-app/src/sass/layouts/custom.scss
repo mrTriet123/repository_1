@@ -1,0 +1,185 @@
+/* here you can put your own css to customize and override the theme */
+
+.step{
+    width: 50px;
+    height: 50px;
+    -moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+    background: #FFFFFF;
+}
+
+
+
+.mt-element-step .step-no-background-thin .selected .mt-step-number {
+    color: #0f5aff !important;
+    border: 2px solid #0f5aff !important;
+    font-weight: 700;
+}
+.mt-element-step .step-no-background-thin .deselected .mt-step-number {
+    color: #c2c2c2!important;
+    border-color: #c2c2c2 !important;
+    font-weight: 700;
+}
+
+.myLink div{
+    color: black;
+}
+.active div{
+    // background:red;
+    color:white;
+}
+
+.caption-subject{
+    color:#0f5aff;
+}
+
+.sub-header{
+    color:#0f5aff;
+    // font-weight:bold;
+    padding-bottom:20px;
+    text-align: center;
+    background: #FFFFFF;
+    border-bottom:1px solid #eef1f5
+}
+
+.order-box{
+    font-size: 10px;
+    font-family: "Open Sans",sans-serif;
+    padding: 0px;
+    border-top:1px solid #eef1f5;
+}
+
+.no-record{
+    color:#e9ecf3;
+    // padding-bottom:20px;
+    padding-top:15px;
+    text-align: center;
+    background: #FFFFFF;
+    border-bottom:1px solid #eef1f5;
+    font-size:12px;
+    height: 50px;
+}
+
+.default-order-no{
+    background: #4a4a4a;
+    color: #FFFFFF;
+    text-align: center;
+    height: 50px;
+    padding-top:5px;
+    border-top:1px solid #4a4a4a;
+    border-bottom:1px solid #eef1f5;
+}
+.urgent-order-no{
+    background: #fa2841;
+    color: #FFFFFF;
+    text-align: center;
+    height: 50px;
+    padding-top:5px;
+    border-top:1px solid #fa2841;
+    border-bottom:1px solid #eef1f5;
+}
+.order-box .order-info{
+    background: #FFFFFF;
+    text-align: left;
+    height: 50px;
+    // border-top:1px solid #eef1f5;
+    border-bottom:1px solid #eef1f5;
+    padding:5px;
+    
+}
+.order-box .total{
+    background: #FFFFFF;
+    text-align: left;
+    color: #0f5aff;
+    font-size: 18px;
+    
+}
+
+.order-box .order-info i{
+    color:#ffb600;
+}
+
+.label-urgent{
+    background-color: #ed6b75
+}
+.label-default{
+    background-color: #4a4a4a
+}
+.popup-dish{
+    text-align: left !important;padding-left:5px;
+}
+.popup-dish .mt-card-name{
+    color:#0f5aff;
+}
+
+//Tab
+
+.tabbable-line>.nav-tabs>li:hover{
+    background: 0 0;
+    border-bottom: 4px solid #fc7e8d;
+    position: relative;
+}
+.tabbable-line>.nav-tabs>li.active{
+    background: 0 0;
+    border-bottom: 4px solid #fa2841;
+    position: relative;
+}
+.tabbable-line > .tab-content{
+    text-align: center;
+    padding-top:0px;
+}
+
+//Notification
+
+.btn-noti{
+    background-color: #0f5aff;
+    color: #FFFFFF;
+}
+
+//carousel
+.carousel-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2%;
+    opacity: .2;
+    filter: alpha(opacity=50);
+    font-size: 12px!important;
+    color:#0f5aff;
+    background-color: transparent;
+    
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    font-size: 50px;
+}
+
+//DatePicker
+
+// datepicker{ position: absolute; z-index: 1001; } 
+// datepicker .btn{ padding: 5px !important; padding-left: 10px !important; padding-right: 10px !important; } 
+// datepicker .btn .text-muted{ line-height: inherit !important;} 
+// datepicker .well {border: 3px solid #2b669a !important;color:#4a4a4a !important}
+datepicker .well {color:#4a4a4a !important}
+
+
+.btn.btn-primary:not(.btn-outline) {
+    color: #FFF;
+    background-color: #0f5aff;
+    border-color: #0f5aff;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+
+.mt-overlay a{
+    text-decoration: none;
+}

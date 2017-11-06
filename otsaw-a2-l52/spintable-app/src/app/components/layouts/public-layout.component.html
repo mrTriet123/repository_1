@@ -1,0 +1,57 @@
+<div class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" *ngIf="!isSetup">
+    <header></header>
+
+<!--     <div class="page-container">
+        <navBar></navBar>
+        <div class="page-content-wrapper">
+            <div class="page-content" [ngClass]="{'remove-margin-left': isUrl('/register')}" style="margin-top:-10px;">
+                <router-outlet></router-outlet>
+                <div ui-view class="fade-in-up"></div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="page-container">
+        <div class="row">
+            <div class="col-lg-2" [ngClass]="{'col-lg-0': isUrl('/register')}">
+                <navBar></navBar>
+            </div>
+            <div class="col-lg-10" [ngClass]="{'col-lg-12': isUrl('/register')}">
+                <router-outlet></router-outlet>
+                <div ui-view class="fade-in-up"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BEGIN FOOTER -->
+    <footer class="page-footer" *ngIf="!isSetup"></footer>
+    <!-- END FOOTER -->
+</div>
+
+
+<!-- BEGIN SETUP -->
+<div class="page-container-bg-solid" *ngIf="isSetup">
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <div class="row">
+            <div class="col-md-1 col-xs-2 col-lg-1">
+                <setUpNavBar></setUpNavBar>
+            </div>
+            <div class="col-md-11 col-xs-10 col-lg-11">
+                <div class="container">
+                </div>
+                <!--<div class="page-content" style="background: red;margin-left:-20px;">-->
+                <!-- BEGIN ACTUAL CONTENT -->
+                <router-outlet></router-outlet>
+                <!-- END ACTUAL CONTENT -->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+
+    <!-- BEGIN FOOTER -->
+    <footer class="page-footer"></footer>
+    <!-- END FOOTER -->
+</div>
+<!-- END SETUP -->

@@ -1,0 +1,45 @@
+<div class="portlet-body col-xs-12 col-md-6 col-lg-5 no-space">
+    <h1 style="margin:0px;padding:0px;color:#0f5aff">Almost there: <br>Tell us more about yourself</h1><br/>
+    <div style="margin:0px;padding:0px;">All your earnings will be transferred to designated bank account</div>
+    <br/>
+    <br/>
+    <div class="text-center" *ngIf="restaurant">
+        <div class="col-xs-12 col-sm-11 col-md-10 no-space">
+            <h2 class="font-weight-500">{{restaurant.restaurant_name}}</h2>
+            <div>{{restaurant.type}}</div>
+            <div class="row">
+                <div class="image-upload">
+                    <label for="file-input">
+                        <img class="col-xs-12 col-sm-8 col-md-5 retaurant_image" *ngFor="let item of restaurant.images" [src]="item.url">
+                        <!-- <img class="col-xs-12 col-sm-8 col-md-5 retaurant_image" *ngIf="model.test" [src]="model.test"> -->
+                    </label>
+                    <!-- <input id="file-input" #input="" (change)="fileChange(input)" type="file"/> -->
+                    <input id="file-input" type="file" #input="" (change)="onChangeFile($event) || fileChange(input)"/>
+                </div>
+            </div>
+            <div class="portlet-body">
+            <!-- BEGIN FORM-->
+                <form id="form_sample_2" role="form" (ngSubmit)="f.form.valid && saveInfo()" #f="ngForm">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Describe your restaurant (in no more than 400 characters)" 
+                            name="describe" required="" [(ngModel)]="model.describe" #describe="ngModel" rows="5" maxlength="400"></textarea>
+                        </div>
+                        <div class="form-actions center">
+                            <button type="submit"><h3>Accept</h3></button><br>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                    </div>
+                </form>
+            <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-md-12">
+        <a routerLink="/step4" (click)="saveInfo()"  style="float:right;color:#0f5aff">Invite employees <i class="fa fa-long-arrow-right"></i></a>
+    </div>
+</div>
+ -->

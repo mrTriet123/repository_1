@@ -1,0 +1,300 @@
+<!-- Delete Item-->
+<div bsModal #auModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{nameAction}} {{nameDish}}?</h4>
+        <button type="button" class="close pull-right" (click)="auModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row row-offcanvas row-offcanvas-right">
+            <div class="col-xs-12 col-sm-12">
+            <div *ngFor="let alert of alerts" class="col-lg-12">
+              <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="deleteAlerts($event)">{{ alert.msg }}</alert>
+            </div>
+                <!-- FORM DELETE -->
+                <form class="form-horizontal" role="form" *ngIf="nameAction=='Delete'" (ngSubmit)="f.form.valid && (((nameAction=='Delete') && deleteDish()))"  #f="ngForm">
+                    <div class="form-group">
+                        <h2 class="col-xs-12 col-sm-12" style="color: red;">Are you sure to delete this item?
+                        </h2>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12">
+                          <button name="btn_submit" type="submit" class="btn btn-danger">{{nameAction}}</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!isEdit">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <!-- BEGIN ACTION -->
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">{{typeCategory}}</span>
+                </div>
+                <div class="row">
+                    <div *ngFor="let alert of alerts" class="col-lg-12">
+                      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+                    </div>
+                </div>
+                <!-- <div class="actions" style="float:right;">
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-primary dropdown-toggle" href="javascript:;" data-toggle="dropdown"> Actions
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-pencil"></i> Edit </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-trash-o"></i> Delete </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-ban"></i> Ban </a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="javascript:;"> Make admin </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+            <!-- END ACTION -->
+
+            <div class="portlet-body">
+                <!-- BEGIN TAB PORTLET-->          
+                <div class="portlet-title tabbable-line tabbable-full-width">      
+                    <ul class="nav nav-tabs">
+                        <li [class.active]="category.id==category_id" *ngFor="let category of categories; let i = index;">
+                            <a (click)="getItemById(category.id)" data-toggle="tab"> {{category.name}} </a>
+                        </li>
+                    </ul>
+
+                    
+                    <!-- BEGIN TAB CONTENT -->
+                        <div class="tab-content" style="padding:10px 15px 10px 15px;">
+                        <!-- BEGIN TAB1 -->
+                        <div class="tab-pane active" id="portlet_tab1">
+                            <!-- BEGIN DISHES -->
+                            <div class="mt-element-overlay">
+                                <div class="row">
+                                    <!-- BEGIN DISH -->
+                                    <div class="col-md-2 nopadding" *ngFor="let dish of dishes">
+                                        <div class="mt-overlay-6">
+                                            <img [src]="dish.image?sanitizer.bypassSecurityTrustResourceUrl(dish.image.path):'../assets/custom/img/menu/breakfast.png'" />
+                                            <div class="mt-overlay bg_dark">
+                                                <a (click)="editDish(dish)">
+                                                    <h2>{{dish.name}}</h2>
+                                                </a>
+                                                <div class="action">
+                                                    <a class="btn default btn-outline" (click)="editDish(dish)">
+                                                        <i class="fa icon-pencil"></i>
+                                                    </a>
+                                                    <a class="btn default btn-outline" (click)="showDelItem(dish)"  >
+                                                        <i class="fa icon-ban"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END DISH -->
+                                    
+                                </div>
+                            </div>
+                            <!-- END DISHES -->
+                        </div>
+                        <!-- END TAB1 -->
+                    </div>
+                    <!-- END TAB CONTENT -->
+                </div>
+            
+
+        
+                <!-- END TAB PORTLET-->
+
+            </div>
+
+            <div class="row" *ngIf="isEnablePagination">
+                <div class="col-md-6">
+                    <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm" (pageChanged)="pageChanged($event)" itemsPerPage="12"
+                              [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
+                    </pagination>
+                </div>
+            </div>
+            <div class="row" *ngIf="!isEnablePagination && (bigTotalItems==0)">
+                <div class="col-md-6">
+                    <h2>No dishes right now!</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- BEGIN EDIT -->
+<div class="row" *ngIf="isEdit">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <!-- BEGIN ACTION -->
+            <div class="portlet-title">
+                <div class="caption col-md-8">
+                    <span (click)="editDish() || getDataFirstTime()" style="color:#fa2841;cursor: pointer;font-size: 16px;"><i class="fa fa-angle-left"></i> Back</span> 
+
+                    <span class="caption-subject bold uppercase" style="padding-left:2%">
+                        {{nameDish}}
+                    </span>
+                </div>
+                <div class="row">
+                    <div *ngFor="let alert of alerts" class="col-lg-12">
+                      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+                    </div>
+                </div>
+                <!-- <div class="actions" style="float:right;">
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-primary dropdown-toggle" href="javascript:;" data-toggle="dropdown"> Actions
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-pencil"></i> Edit </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-trash-o"></i> Delete </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-ban"></i> Ban </a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="javascript:;"> Make admin </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+            <!-- END ACTION -->
+
+                        
+            <div class="portlet-body">
+                
+                <!-- BEGIN TABLE -->
+                <div class="row">
+
+
+                <div class="row">
+                    
+                    <div class="col-md-12" style="margin:0px;">
+                            <div class="col-md-6">
+                                <div class="form-group mt-repeater">
+                                <!-- TEST -->
+                                    
+                                    <div class="portlet-body mt-element-card mt-element-overlay">
+                                        
+                                        <div class="mt-card-item">
+                                            <div class="mt-card-avatar mt-overlay-1">
+                                                <!-- <img src="../assets/custom/img/menu/breakfast.png" /> -->
+                                                <label for="file-input">
+                                                    <img [src]="dish.image?sanitizer.bypassSecurityTrustResourceUrl(dish.image):model.url" />
+                                                </label>
+                                                <input style="display: none;" id="file-input" type="file" #input="" (change)="onChangeFile($event) || fileChange(input)"/>
+                                            </div>
+                                        </div>
+                                        <form role="form" (ngSubmit)="f.form.valid && submitEdit()" #f="ngForm">
+                                            <div class="form-group">
+                                                <label class="control-label">Dish name</label>
+                                                <input type="text" placeholder="Curry Chicken" class="form-control" name="name" [(ngModel)]="dish.name" required /> 
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Description</label>
+                                                <textarea class="form-control" rows="3" placeholder="It's delicious!!" name="description" [(ngModel)]="dish.description" required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Spicy Levels</label>
+                                                <select class="form-control" name="size" [(ngModel)]="dish.spicy_levels" required>
+                                                    <option value="1">Normal</option>
+                                                    <option value="2">Midd</option>
+                                                    <option value="3">Hot</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Online Order Inventory</label>
+                                                <input type="text" class="form-control" name="online_order_inventory" [(ngModel)]="dish.online_order_inventory" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">Category</label>
+                                                <ng-select class="category_select"  [multiple]="true"
+                                                  [items]="listCategorySelect"
+                                                  [active]="selectedDishValues"
+                                                  (data)="refreshDishValue($event)"
+                                                  placeholder="Select category" required>
+                                                </ng-select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">Addons</label>
+                                                <ng-select class="category_select" [multiple]="true"
+                                                  [items]="listAddonSelect"
+                                                  [active]="selectedAddonValues"
+                                                  (data)="refreshAddonValue($event)"
+                                                  placeholder="Select addons">
+                                                </ng-select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">Size Small ($)</label>
+                                                <input type="text" placeholder="10" class="form-control" name="sizeSmall" [(ngModel)]="dish_sizes[0].price" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">Size Medium ($)</label>
+                                                <input type="text" placeholder="20" class="form-control" name="Medium" [(ngModel)]="dish_sizes[1].price" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">Size Larger ($)</label>
+                                                <input type="text" placeholder="10" class="form-control" name="sizeLarger" [(ngModel)]="dish_sizes[2].price" />
+                                            </div>
+
+                                            <div class="margin-top-10">
+                                                <button class="btn btn-primary col-md-4 col-lg-4" type="submit" [disabled]="!f.form.valid">Save changes</button>
+                                                <button (click)="editDish() || getDataFirstTime()" class="btn default col-md-4 col-lg-4 col-lg-offset-1 col-md-offset-1"> Cancel</button>
+                                            </div>
+                                        </form>
+                                        <div class="row">
+                                                <div *ngFor="let alert of alerts" class="col-lg-12">
+                                                  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <!-- END TEST -->
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                <!-- END TABLE -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- END EDIT -->

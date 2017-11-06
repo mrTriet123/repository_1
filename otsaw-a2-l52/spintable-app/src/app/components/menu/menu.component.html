@@ -1,0 +1,179 @@
+<!-- Delete Item-->
+<div bsModal #auModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{nameAction}} {{nameCategory}} category?</h4>
+        <button type="button" class="close pull-right" (click)="auModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row row-offcanvas row-offcanvas-right">
+            <div class="col-xs-12 col-sm-12">
+            <div *ngFor="let alert of alerts" class="col-lg-12">
+              <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+            </div>
+                <!-- FORM DELETE -->
+                <form class="form-horizontal" role="form" *ngIf="nameAction=='Delete'" (ngSubmit)="f.form.valid && (((nameAction=='Delete') && deleteCategory()))"  #f="ngForm">
+                    <div class="form-group">
+                        <h2 class="col-xs-12 col-sm-12" style="color: red;">Are you sure to delete this item?
+                        </h2>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12">
+                          <button name="btn_submit" type="submit" class="btn btn-danger">{{nameAction}}</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <!-- BEGIN ACTION -->
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">Menu</span>
+                </div>
+            </div>
+            <!-- END ACTION -->
+
+            <div class="portlet-body">
+                <!-- BEGIN DISHES -->
+                <h4>Dishes</h4>
+                <p>Choose a range of time while you want to keep open the online reservation</p>
+                <div class="mt-element-overlay">
+                    <div class="row">
+                    
+                        <div class="col-md-2 nopadding" *ngFor="let dish of dishes">
+                            <div class="mt-overlay-6">
+                                <img [src]="dish.image[0]?sanitizer.bypassSecurityTrustResourceUrl(global.host+dish.image[0].replace('.','')):'../assets/custom/img/menu/breakfast.png'" />
+                                <div class="mt-overlay bg_dark">
+                                    <a routerLink="/dish" [queryParams]="{category_id: dish.id, drink_category: 0}">
+                                        <h2>{{dish.name}}</h2>
+                                    </a>
+                                    <div class="action">
+                                        <a class="btn default btn-outline" routerLink="/edit-category" [queryParams]="{category_id: dish.id, type: 'Dishes'}">
+                                            <i class="fa icon-pencil"></i>
+                                        </a>
+                                        <a class="btn default btn-outline" (click)="showDelItem(dish)">
+                                            <i class="fa icon-ban"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 nopadding">
+                            <div class="mt-overlay-6">
+                                <img src="../assets/custom/img/menu/new-item.png" />
+                                <div class="mt-overlay">
+                                    <a (click)="addCategoryDishes()" >
+                                        <h2>Create Category</h2>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END DISHES -->
+
+                <!-- BEGIN DRINKS -->
+                <hr/>
+                <h4>Drinks</h4>
+                <p>Choose a range of time while you want to keep open the online reservation</p>
+                <div class="mt-element-overlay">
+                    <div class="row">
+                        <!-- BEGIN CATEGORY -->
+                        <div class="col-md-2 nopadding" *ngFor="let drink of drinks">
+                            <div class="mt-overlay-6">
+                                <img [src]="drink.image[0]?sanitizer.bypassSecurityTrustResourceUrl(global.host+drink.image[0].replace('.','')):'../assets/custom/img/menu/juice.png'" />
+                                <div class="mt-overlay bg_dark">
+                                    <a routerLink="/dish" [queryParams]="{category_id: drink.id, drink_category: 1}">
+                                        <h2>{{drink.name}}</h2>
+                                    </a>
+                                    <div class="action">
+                                        <a class="btn default btn-outline" routerLink="/edit-category" [queryParams]="{category_id: drink.id, type: 'Drinks'}">
+                                            <i class="fa icon-pencil"></i>
+                                        </a>
+                                        <a class="btn default btn-outline" (click)="showDelItem(drink)">
+                                            <i class="fa icon-ban"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CATEGORY -->
+
+                        <!-- BEGIN CATEGORY -->
+                        <div class="col-md-2 nopadding">
+                            <div class="mt-overlay-6">
+                                <img src="../assets/custom/img/menu/new-item.png" />
+                                <div class="mt-overlay">
+                                    <a (click)="addCategoryDrinks()">
+                                        <h2>Create Category</h2>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CATEGORY -->
+
+                    </div>
+                </div>
+                <!-- END DRINKS -->
+
+                <!-- BEGIN ADD-ON -->
+                <hr/>
+                <h4>Add on</h4>
+                <p>Choose a range of time while you want to keep open the online reservation</p>
+                <div class="mt-element-overlay">
+                    <div class="row">
+                        <!-- BEGIN CATEGORY -->
+                        <div class="col-md-2 nopadding" *ngFor="let addon of addons">
+                            <div class="mt-overlay-6">
+                            <img src="../assets/custom/img/menu/new-item.png" />
+                                <div class="mt-overlay">
+                                    <a routerLink="/edit-category" [queryParams]="{addon_id: addon.id, type: 'Addon'}">
+                                        <h2>{{addon.name}}</h2>
+                                    </a>
+                                    <div class="action">
+                                        <a class="btn default btn-outline" routerLink="/edit-category" [queryParams]="{addon_id: addon.id, type: 'Addon'}">
+                                            <i class="fa icon-pencil"></i>
+                                        </a>
+                                        <a class="btn default btn-outline" (click)="showDelItem(addon)">
+                                            <i class="fa icon-ban"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CATEGORY -->
+
+                        <!-- BEGIN CATEGORY -->
+                        <div class="col-md-2 nopadding">
+                            <div class="mt-overlay-6">
+                                <img src="../assets/custom/img/menu/new-item.png" />
+                                <div class="mt-overlay">
+                                    <a (click)="addCategoryAddon()">
+                                        <h2>Create Category</h2>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CATEGORY -->
+
+                    </div>
+                </div>
+                <!-- END ADD-ON -->
+            </div>
+        </div>
+    </div>
+</div>

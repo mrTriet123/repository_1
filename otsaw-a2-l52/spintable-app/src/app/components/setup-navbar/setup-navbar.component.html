@@ -1,0 +1,54 @@
+<!-- BEGIN CONTENT BODY -->
+<div class="nt">
+    <img src="../../assets/custom/img/logo.png" style="width: 100%;">
+</div>
+<div class="nt" style="background-color: #fa2841;">
+    <ul class="mt-element-step">
+        <li>
+            <a [class.disabled]="!isEnable('step1') && !isEnable('step2') && !isEnable('step3') && !isEnable('step4') && !isEnable('step5')">
+                <div class="step-no-background-thin">
+                    <div class="centerDiv"routerLink="/step1" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">
+                        <div class="mt-step-number bg-white font-grey">1</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a [class.disabled]="!isEnable('step2') && !isEnable('step3') && !isEnable('step4') && !isEnable('step5')">
+                <div class="step-no-background-thin">
+                    <div class="centerDiv"routerLink="/step2" routerLinkActive="selected">
+                        <div class="mt-step-number bg-white font-grey">2</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a [class.disabled]="!isEnable('step3') && !isEnable('step4') && !isEnable('step5')">
+                <div class="step-no-background-thin">
+                    <div class="centerDiv"routerLink="/step3" routerLinkActive="selected">
+                        <div class="mt-step-number bg-white font-grey">3</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a [class.disabled]="!isEnable('step4') && !isEnable('step5')">
+                <div class="step-no-background-thin">
+                    <div class="centerDiv"routerLink="/step4" routerLinkActive="selected">
+                        <div class="mt-step-number bg-white font-grey">4</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a [class.disabled]="!isEnable('step5')">
+                <div class="step-no-background-thin">
+                    <div class="centerDiv"routerLink="/step5" routerLinkActive="selected">
+                        <div class="mt-step-number bg-white font-grey">5</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+    <!-- END PAGE BASE CONTENT -->

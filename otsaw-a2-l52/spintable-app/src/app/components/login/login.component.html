@@ -1,0 +1,65 @@
+<head>
+
+        <!-- Metadata -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+
+
+        <!-- CSS -->
+        <!-- <link href="../../../assets/global/vendor/login/app.css" rel="stylesheet"> -->
+
+
+        <!-- JS -->
+        <script src="../../../assets/global/vendor/login/all.js" language="javascript"></script>
+
+        <title>Quabii</title>
+
+
+</head>
+    <!-- <body class="gray-bg body-small"> -->
+
+        
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
+
+    <h1 class="logo-name">
+        <img alt="image" src="../../../assets/global/vendor/login/logo-with-text.png" style="width:100px;height:100px;">
+    </h1>
+
+</div>
+        <h3>Welcome to QUABII</h3>
+
+        <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
+            <!-- <input type="hidden" name="_token" value="S35plkweG6BESm3ksBFhqIb0NE3CbLVmGsiLhfOg"> -->
+           
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Email" required="" value="" [(ngModel)]="model.email" #email="ngModel">
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" required="" [(ngModel)]="model.password" #password="ngModel">
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-error': message }">
+                <span class="help-block" *ngIf="message">
+                    <strong>{{message}}</strong>
+                </span>
+            </div>
+
+            <div class="form-group margin-nt">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="remember"> Remember Me
+                    </label>
+                </div>
+            </div>
+
+            <button [disabled]="loading" type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a [routerLink]="['/reset-password']"><small>Forgot password?</small></a>
+                                </form>
+
+        <p class="m-t"> <small><strong>Copyright</strong> OTSAW Digital Inc © 2015-2016</small> </p>    </div>
+</div>
+<!-- </body> -->

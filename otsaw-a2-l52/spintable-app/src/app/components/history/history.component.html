@@ -1,0 +1,124 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb">
+    <li class="active"> 
+        <fx-datepicker [id]="'demo-date'" [value]="dateValue" (dateModelChange)="changeValue($event)"></fx-datepicker> 
+    </li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <!-- BEGIN ORDER -->
+    <div class="col-md-6">
+        <div class="portlet light bordered" style="padding:0px;">
+            <div class="portlet-title" style="padding:10px;">
+                <div class="caption font-green-sharp">
+                    <span class="caption-subject bold uppercase">PAST TRANSACTION</span>
+                    <span class="caption-helper hide"></span>
+                </div>
+                <!--<div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-noti" href="#">
+                        7
+                    </a>
+                </div>-->
+            </div>
+            <div class="portlet-body">
+                <div *ngIf="transactions?.length == 0" class="col-md-12 no-record">
+                    No records found
+                </div> 
+                <!-- BEGIN ORDER1 -->
+                <div *ngFor="let order of transactions" class="order-box">
+                    <a (click)="openOrderDetails(order.reservable_id)">
+                        <div class="col-md-3 default-order-no">
+                        <i class="fa fa-newspaper-o"></i><br/>
+                            {{ order.order_code }}
+                        </div>
+                    </a>
+                    <div class="col-md-9 order-info">
+                        <div class="col-md-3">
+                            <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                        </div>
+                        <div class="col-md-7">
+                            <i class="fa fa-user"></i> {{ order.customer_name }}
+                        </div>
+                        <div class="col-md-2"></div>
+
+                        <div class="col-md-3" style="margin-top:5px;">
+                            Table - {{ order.table_no }}
+                        </div>
+                        <div class="col-md-6" style="margin-top:5px;">
+                            No of Person - {{ order.group_size }}
+                        </div>
+                        <div class="col-md-2 total">${{ order.total_amount }}</div>
+                    </div>
+                </div>
+                <!-- END ORDER1 -->
+            </div>
+        </div>
+    </div>
+    <!-- END ORDER -->
+
+    <!-- BEGIN BOOKING -->
+    <div class="col-md-6">
+        <div class="portlet light bordered" style="padding:0px;">
+            <div class="portlet-title" style="padding:10px;">
+                <div class="caption font-green-sharp">
+                    <span class="caption-subject bold uppercase">PAST TABLE RESERVATIONS</span>
+                    <span class="caption-helper hide"></span>
+                </div>
+                <!--<div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-noti" href="#">
+                        7
+                    </a>
+                </div>-->
+            </div>
+            <div class="portlet-body">
+                <div *ngIf="bookings?.length == 0" class="col-md-12 no-record">
+                    No records found
+                </div> 
+                <!-- BEGIN ORDER1 -->
+                <div *ngFor="let order of bookings" class="order-box">
+                    <a (click)="openOrderDetails(order.reservable_id)">
+                        <div class="col-md-3 default-order-no">
+                        <i class="fa fa-newspaper-o"></i><br/>
+                            {{ order.order_code }}
+                        </div>
+                    </a>
+                    <div class="col-md-9 order-info">
+                        <div class="col-md-3">
+                            <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                        </div>
+                        <div class="col-md-7">
+                            <i class="fa fa-user"></i> {{ order.customer_name }}
+                        </div>
+                        <div class="col-md-2"></div>
+
+                        <div class="col-md-3" style="margin-top:5px;">
+                            Table - {{ order.table_no }}
+                        </div>
+                        <div class="col-md-6" style="margin-top:5px;">
+                            No of Person - {{ order.group_size }}
+                        </div>
+                        <!--<div class="col-md-2 total"></div>-->
+                    </div>
+                </div>
+                <!-- END ORDER1 -->
+            </div>
+        </div>
+    </div>
+    <!-- END BOOKING -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<!-- BEGIN MODAL -->
+<fx-modal #modal></fx-modal>
+<!-- END MODAL -->
+
+
+<!-- BEGIN MAIN JS-->
+<script>
+    // call any jquery or angularjs code ehre
+</script>
+<!-- BEGIN MAIN JS -->

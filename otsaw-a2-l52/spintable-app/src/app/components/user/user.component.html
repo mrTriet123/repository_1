@@ -1,0 +1,32 @@
+<!-- BEGIN HEADER -->
+    <header class="page-header navbar navbar-fixed-top"></header>
+<!-- END HEADER -->
+<div class="clearfix"> </div>
+<!-- BEGIN CONTAINER -->
+        <div class="container">
+            <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+                <navBar></navBar>
+                <!-- END SIDEBAR -->
+                <div class="page-content-wrapper">
+                    <div class="page-content">
+                        <!-- BEGIN STYLE CUSTOMIZER(optional) -->
+                        <!--<div data-ng-include="'tpl/theme-panel.html'" data-ng-controller="ThemePanelController" class="theme-panel hidden-xs hidden-sm"> </div>-->
+                        <!-- END STYLE CUSTOMIZER -->
+                        <!-- BEGIN ACTUAL CONTENT -->
+                        <div ui-view class="fade-in-up"> </div>
+                        <!-- END ACTUAL CONTENT -->
+                    </div>
+                </div>
+                <!-- BEGIN QUICK SIDEBAR -->
+                <a href="javascript:;" class="page-quick-sidebar-toggler">
+                    <i class="icon-login"></i>
+                </a>
+                <!--<div data-ng-include="'tpl/quick-sidebar.html'" data-ng-controller="QuickSidebarController" class="page-quick-sidebar-wrapper"></div>-->
+                <!-- END QUICK SIDEBAR -->
+            </div>
+            <!-- BEGIN FOOTER -->
+            <footer class="page-footer"></footer>
+            <!-- END FOOTER -->
+        </div>
+        <!-- END CONTAINER -->

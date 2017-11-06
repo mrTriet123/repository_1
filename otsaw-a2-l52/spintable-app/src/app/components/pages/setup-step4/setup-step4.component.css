@@ -1,0 +1,49 @@
+.portlet-body h1 {
+    margin:0px;
+    padding:0px;
+    color:#0f5aff;
+    font-weight: bold;
+}
+
+.box-form-nt {
+    background-color: #0f5aff;
+    padding: 30px 0;
+}
+
+.box-form-nt h3 {
+    color: #fff;
+    font-weight: bold;
+}
+
+.box-form-nt h2 {
+    color: #fff;
+    font-weight: bold;
+}
+
+#form_sample_2 span {
+    color: white;
+}
+
+#form_sample_2 label {
+    color: white;
+}
+
+#form_sample_2 a {
+    color: white;
+    text-decoration: none;
+}
+
+.center {
+    margin-top: 130px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#form_sample_2 input {
+    color: white;
+}
+
+button {
+    border: 0px;
+    background: none;
+}

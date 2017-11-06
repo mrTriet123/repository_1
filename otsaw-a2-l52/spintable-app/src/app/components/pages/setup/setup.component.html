@@ -1,0 +1,57 @@
+<div class="portlet-body col-xs-12 col-md-6 col-lg-5 no-space">
+    <h1>First: Set your accounts</h1>
+    <p>You have two kind of accounts: administrator and employee.<br>
+    You will be able to manager all aspects of the account.</p>
+    <div class="row no-space">
+        <div class="col-xs-12 col-sm-11 col-md-10 no-space">
+            <div class="box-form-nt">
+                <div class="row no-space">
+                    <div class="col-xs-12">
+                        <div class="row no-space">
+                            <div class="col-xs-12 col-sm-4 col-md-3">
+                                <img src="../../assets/custom/img/logo.png" style="width: 100%;">
+                            </div>
+                            <div class="col-xs-12 col-sm-8 col-md-9">
+                                <h2 class="no-space">Administrator Account</h2>
+                                <p style="color: white;">Only owners/main stakeholders should have access to this account</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- BEGIN FORM-->
+                <div class="row no-space">
+                    <div class="col-xs-12">
+                        <div class="row no-space">
+                            <div class="col-xs-12">
+                                <form id="form_sample_2" role="form" (ngSubmit)="saveName()" #f="ngForm">
+                                    <div class="form-body">
+                                        <div class="form-group form-md-line-input">
+                                            <label for="form_control_1">The name used for this account is:
+                                            </label>
+                                            <input type="text" class="form-control" name="name" id="form_control_1" value="{{name}}" [disabled]="!editName" [(ngModel)]="name" required="">
+                                            <!-- <a class="help-block">Click to edit or accept to keep this name</a> -->
+                                        </div>
+                                    </div>
+                                    <a (click)="editName = !editName">Click to edit or accept to keep this name</a>
+                                    <div class="form-actions center">
+                                        <button type="submit"><h3>Accept</h3></button><br>
+                                        <a style="text-decoration: underline;">Tell me more</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END FORM-->
+            </div>  
+        </div>
+    </div>
+
+</div>
+
+<!-- <div class="row">
+    <div class="col-md-12">
+        <a routerLink="/step2" (click)="saveName()"  style="float:right;color:#0f5aff">Fill in bank account details <i class="fa fa-long-arrow-right"></i></a>
+    </div>
+</div> -->

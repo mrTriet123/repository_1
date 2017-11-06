@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        <div class="boxNoti paddingTop">
+            <h3>Why a partner?</h3>
+            <span>Table, inventory & managerment all in one!</span>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <div class="center">
+            <div class="boxReg" *ngIf="!isThank">
+                <form class="m-t" role="form" (ngSubmit)="f.form.valid && register()" #f="ngForm">
+                    <h3>Want more sales and lower costs?</h3>
+                    <p style="color: #828282; padding-bottom: 15px;">Sign up as Spintable's partner now! We will contact you within the next 48 hours.<p>
+                    <div class="form-group" [ngClass]="{'has-error': message }">
+                        <span class="help-block" *ngIf="message">
+                            <strong>{{message}}</strong>
+                        </span>
+                        <input type="email" class="form-control" name="email" placeholder="Email*" required="" value="" [(ngModel)]="model.email" #email="ngModel">
+                    </div>
+                    <div class="form-group" style="display: flex;">
+                        <input type="text" style="width: 50%; border-right: 0px;" class="form-control" placeholder="First Name*" name="firstname" required="" [(ngModel)]="model.firstname" #firstname="ngModel">
+                        <input type="text" style="width: 50%" class="form-control" placeholder="Last Name*" name="lastname" required="" [(ngModel)]="model.lastname" #lastname="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Restaurant Name*" name="restaurantname" required="" [(ngModel)]="model.restaurantname" #restaurantname="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Contact number*" name="contactnumber" required="" [(ngModel)]="model.contactnumber" #contactnumber="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <!-- <input type="text" class="form-control" placeholder="Restaurant Type" name="restauranttype" required="" [(ngModel)]="model.restauranttype" #restauranttype="ngModel"> -->
+                        <select class="form-control" [(ngModel)]="model.restauranttype" name="restauranttype" required>
+                            <!-- <option value="null">Please select Restaurant Type!</option> -->
+                            <option *ngFor="let item of restaurantTypes"
+                                [value]="item.id">
+                                {{item.type}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Location" name="location" [(ngModel)]="model.location" required="" #location="ngModel">
+                    </div>
+
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    <button [disabled]="loading" type="submit" class="btn block full-width m-b btnSubmit">Submit</button>
+                    <div style="padding: 5px;">
+                        <span>Already an partner?</span> 
+                        <a [routerLink]="['/login']"><small>Login</small></a>
+                    </div>
+                </form>
+            </div>
+            <div class="boxReg" *ngIf="isThank">
+                <h2>Thank you for your interest in SpinTable!</h2>
+                <p>We will review your information and contact you within the next 48 hours.</p>
+            </div>
+        </div>
+    </div>
+</div>

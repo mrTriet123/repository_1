@@ -1,0 +1,27 @@
+<div *ngIf="!isLogin">
+    <div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <!-- BEGIN PAGE HEAD -->
+            <header></header>
+        <!-- END PAGE HEAD -->
+        <!-- BEGIN SIDEBAR -->
+            <navBar></navBar>
+        <!-- END SIDEBAR -->
+    </nav>
+
+        <div id="page-wrapper">
+            <router-outlet></router-outlet>
+            
+            <!-- BEGIN FOOTER -->
+            <footer class="page-footer" *ngIf="!isSetup"></footer>
+            <!-- END FOOTER -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+</div>
+
+<router-outlet *ngIf="isLogin"></router-outlet>

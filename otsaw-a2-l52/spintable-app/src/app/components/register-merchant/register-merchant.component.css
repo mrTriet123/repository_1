@@ -1,0 +1,84 @@
+.boxReg h3{
+    margin: 0px;
+}
+
+.boxNoti {
+    padding: 20px 15px;
+    background-color: white;
+    /*border: 1px solid;*/
+}
+
+.boxReg {
+    padding: 20px 15px;
+    background-color: white;
+    border: 2px solid red;
+}
+
+.center {
+    text-align: center;
+}
+
+.btnSubmit {
+  background-color: #ff4646;
+  color: #fff;
+  margin: 10px 0px;
+  font-size: 20px;
+  padding: 8px 35px;
+}
+/*
+@media (max-width: 992px) { 
+    .boxReg{
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .boxReg span {
+        display: inline-block;
+        margin-top: 10px;
+    }
+}
+*/
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .boxReg{
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .boxReg span {
+        display: inline-block;
+        margin-top: 10px;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .boxReg{
+        margin-top: 20px;
+        text-align: center;
+    }
+    .paddingTop{
+        /*margin-top: 95px;*/
+    }
+
+    .boxReg span {
+        display: inline-block;
+        margin-top: 10px;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+}

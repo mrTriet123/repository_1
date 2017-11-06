@@ -1,0 +1,12 @@
+/vendor
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
+.env.dev
+.env.test
+.env.dis
+.idea/workspace.xml
+composer.lock
+.DS_Store
+/.htaccess

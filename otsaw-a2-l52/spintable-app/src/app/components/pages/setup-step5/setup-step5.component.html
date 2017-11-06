@@ -1,0 +1,23 @@
+<div class="portlet-body col-xs-12 col-md-12 col-lg-12 no-space fix-nt">
+    <div class="text-center">
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+                <img src="../../assets/custom/img/logo.png" style="width: 100%; max-height: 200px;max-width: 200px;">
+            </div>
+        </div>
+        <div class="info">
+            <h1>Success!</h1>
+            <h2>Your account is all set!</h2>
+            <p>To make any changes, go to settings.</p>
+        </div>
+        <div class="">
+            <button type="submit" (click)="submit()" class="btn btn-primary block full-width m-b">Take to my home page</button>
+        </div>
+    </div>
+</div>
+
+<div ng-spinner-bar class="page-spinner-bar" *ngIf="loading">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+</div> 

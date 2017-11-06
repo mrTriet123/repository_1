@@ -1,0 +1,107 @@
+<!-- BEGIN MODAL -->
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <!-- BEGIN MODAL CONTENT -->
+        <div class="modal-content">
+            <!-- BEGIN MODAL HEADER -->
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-2 default-order-no" style="padding-top:10px;">
+                        <h4 class="modal-title"><i class="fa fa-newspaper-o"></i> {{order_details?.order_code}}</h4>
+                    </div>
+                    <div class="col-md-9">
+                        <p style="text-align: center;vertical-align: top;font-size:16px;">
+                            Send to Table No {{order_details.table_no}} at {{ order_details.datetime | date: "h:mma" }} 
+                        </p>
+                    </div>
+                    <div class="col-md-1">
+                        <a type="button" class="pull-right" aria-label="Close" (click)="staticModal.hide()">
+                            <i class="fa fa-times" style="font-size:18px;color:#4a4a4a"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MODAL HEADER -->
+            <!-- BEGIN MODAL BODY -->
+            <div class="modal-body">
+                <!-- BEGIN DISHES -->
+                <div class="mt-element-card mt-element-overlay">
+                    <div class="row">
+                        <carousel [noWrap]="false" *ngIf="order_details?.dishes">
+                        <slide *ngFor="let x of range(order_details.dishes.length); let i = index">
+                            <!-- BEGIN SINGLE DISH -->
+                            <div *ngFor="let dish of chunk(order_details.dishes, i);" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="mt-card-item">
+                                    <div class="mt-card-avatar mt-overlay-1">
+                                        <img src="{{dish.images[0].url}}" style="height:100px;"/>
+                                        <div class="mt-overlay">
+                                            <ul class="mt-info">
+                                                <li>
+                                                    <a class="btn default btn-outline" href="javascript:;">
+                                                    <i class="icon-magnifier"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn default btn-outline" href="javascript:;">
+                                                    <i class="icon-link"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="mt-card-content popup-dish">
+                                        <h3 class="mt-card-name">{{dish.sizes.quantity}} {{dish.name}} [{{dish.sizes.name}}]</h3>
+                                        <b *ngFor="let addon of dish.addons; let first = first; let last = last" class="font-grey-mint">   {{first ? 'Addons: ' : ''}}{{addon['name']}}{{last ? '': ', '}}</b>
+                                        <p class="font-grey-mint">{{dish.sizes.notes ? 'Notes: ' + dish.sizes.notes : ''}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END SINGLE DISH -->
+                        </slide>
+                        </carousel>
+                    </div>
+                </div>
+                <!-- END DISHES -->
+            </div>
+            <!-- END MODAL BODY -->
+            <!-- BEGIN MODAL FOOTER -->
+            <div class="modal-footer">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs ">
+                            <!--<li>
+                                <a href="#tab_15_2" data-toggle="tab"> Cancel Order </a>
+                            </li>-->
+                            <li class="active" style="margin-left: 32%;">
+                                <a href="#tab_15_1" data-toggle="tab"> Contact Customer </a>
+                            </li>
+                            <!--<li>
+                                <a href="#tab_15_3" data-toggle="tab"> Section 3 </a>
+                            </li>-->
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_15_1">
+                                <p> 
+                                    {{order_details.customer_name}}: {{order_details.mobile_no}} <br/>
+                                    {{order_details.email}}<br/> </p>
+                            </div>
+                            <div class="tab-pane" id="tab_15_2">
+                                <p> Howdy, I'm in Section 2. </p>
+                            </div>
+                            <div class="tab-pane" id="tab_15_3">
+                                <p> Howdy, I'm in Section 3. </p>
+                            </div>
+                        </div>
+                    </div>
+                                
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <!-- BEGIN MODAL FOOTER -->
+        </div>
+        <!-- END MODAL CONTENT -->
+    </div>
+</div>
+<!-- END MODAL -->

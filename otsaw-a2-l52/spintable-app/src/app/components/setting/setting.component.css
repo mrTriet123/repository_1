@@ -1,0 +1,22 @@
+.portlet-body h4 {
+  font-weight: 600;
+}
+
+.input-nt {
+  border: 0;
+  border-bottom: 1px solid #0f5aff;
+}
+
+.popover .popover-title {
+    background-color: #0f5aff !important;
+    color: white;
+    font-weight: 600;
+}
+
+button {
+    background-color: #0f5aff;
+}
+
+.btn-link{
+    color: #0f5aff !important;
+}

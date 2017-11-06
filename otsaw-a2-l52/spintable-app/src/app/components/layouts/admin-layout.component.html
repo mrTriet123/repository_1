@@ -1,0 +1,11 @@
+<div id="wrapper">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <header-admin></header-admin>
+            <navBar-admin></navBar-admin>
+    </nav>
+
+    <div id="page-wrapper">
+        <router-outlet></router-outlet>
+        <footer class="page-footer" *ngIf="!isSetup"></footer>
+    </div>
+</div>

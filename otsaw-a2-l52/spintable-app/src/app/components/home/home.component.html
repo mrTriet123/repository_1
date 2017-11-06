@@ -1,0 +1,245 @@
+<div *ngIf="isLogin()">
+    <!-- BEGIN PAGE BREADCRUMB -->
+    <ul class="page-breadcrumb breadcrumb">
+        <li class="active"> 
+            <fx-datepicker [id]="'demo-date'" [value]="dateValue" (dateModelChange)="changeValue($event)"></fx-datepicker> 
+        </li>
+    </ul>
+    <!-- END PAGE BREADCRUMB -->
+
+    <!-- BEGIN MAIN CONTENT -->
+    <div class="row">
+        <!-- BEGIN ORDER -->
+        <div class="col-md-4">
+            <div class="portlet light bordered" style="padding:0px;">
+                <div class="portlet-title" style="padding:10px;">
+                    <div class="caption font-green-sharp">
+                        <span class="caption-subject bold uppercase">ORDER</span>
+                        <span class="caption-helper hide"></span>
+                    </div>
+                    <div *ngIf="(less_than_hour_orders?.length + more_than_hour_orders?.length) > 0" class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-noti" href="#">
+                            {{ less_than_hour_orders?.length + more_than_hour_orders?.length }}
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="col-md-12 sub-header">
+                        In less than an hour
+                    </div>
+
+                    <div *ngIf="less_than_hour_orders?.length == 0" class="col-md-12 no-record">
+                        No records found
+                    </div> 
+
+                    <!-- BEGIN ORDER1 -->
+                    <div *ngFor="let order of less_than_hour_orders" class="order-box">
+                        <a (click)="openOrderDetails(order.reservable_id)">
+                            <div class="col-md-3 urgent-order-no">
+                                <i class="fa fa-newspaper-o"></i><br/>
+                                {{ order.order_code }}
+                            </div>
+                        </a>
+                        <div class="col-md-9 order-info">
+                            <div class="col-md-5">
+                                <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                            </div>
+                            <div class="col-md-7">
+                                <i class="fa fa-user"></i> {{ order.customer_name }}
+                            </div>
+
+                            <div class="col-md-5" style="margin-top:5px;">
+                                Table - {{ order.table_no }}
+                            </div>
+                            <div class="col-md-7" style="margin-top:5px;">
+                                No of Person - {{ order.group_size }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ORDER1 -->
+
+                    
+                    <div class="col-md-12 sub-header" style="padding-top:20px;">
+                        Other upcoming orders
+                    </div>
+
+                    <div *ngIf="more_than_hour_orders?.length == 0" class="col-md-12 no-record">
+                        No records found
+                    </div> 
+
+                    <!-- BEGIN ORDER1 -->
+                    <div *ngFor="let order of more_than_hour_orders" class="order-box">
+                        <a (click)="openOrderDetails(order.reservable_id)">
+                            <div class="col-md-3 default-order-no">
+                                <i class="fa fa-newspaper-o"></i><br/>
+                                {{ order.order_code }}
+                            </div>
+                        </a>
+                        <div class="col-md-9 order-info">
+                            <div class="col-md-5">
+                                <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                            </div>
+                            <div class="col-md-7">
+                                <i class="fa fa-user"></i> {{ order.customer_name }}
+                            </div>
+
+                            <div class="col-md-5" style="margin-top:5px;">
+                                Table - {{ order.table_no }}
+                            </div>
+                            <div class="col-md-7" style="margin-top:5px;">
+                                No of Person - {{ order.group_size }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ORDER1 -->
+
+                </div>
+            </div>
+        </div>
+        <!-- END ORDER -->
+
+        <!-- BEGIN BOOKING -->
+        <div class="col-md-4">
+            <div class="portlet light bordered" style="padding:0px;">
+                <div class="portlet-title" style="padding:10px;">
+                    <div class="caption font-green-sharp">
+                        <span class="caption-subject bold uppercase">TABLE RESERVATIONS</span>
+                        <span class="caption-helper hide"></span>
+                    </div>
+                    <div *ngIf="(less_than_hour_bookings?.length + more_than_hour_bookings?.length) > 0" class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-noti" href="#">
+                            {{ less_than_hour_bookings?.length + more_than_hour_bookings?.length }}
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="col-md-12 sub-header">
+                        In less than an hour
+                    </div>
+
+                    <div *ngIf="less_than_hour_bookings?.length == 0" class="col-md-12 no-record">
+                        No records found.
+                    </div> 
+
+                    <!-- BEGIN ORDER1 -->
+                    <div *ngFor="let order of less_than_hour_bookings" class="order-box">
+                        <a (click)="openOrderDetails(order.reservable_id)">
+                            <div class="col-md-3 urgent-order-no">
+                                <i class="fa fa-newspaper-o"></i><br/>
+                                {{ order.order_code }}
+                            </div>
+                        </a>
+                        <div class="col-md-9 order-info">
+                            <div class="col-md-5">
+                                <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                            </div>
+                            <div class="col-md-7">
+                                <i class="fa fa-user"></i> {{ order.customer_name }}
+                            </div>
+
+                            <div class="col-md-5" style="margin-top:5px;">
+                                Table - {{ order.table_no }}
+                            </div>
+                            <div class="col-md-7" style="margin-top:5px;">
+                                No of Person - {{ order.group_size }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ORDER1 -->
+
+                    
+                    <div class="col-md-12 sub-header" style="padding-top:20px;">
+                        Other upcoming bookings
+                    </div>
+
+                    <div *ngIf="more_than_hour_bookings?.length == 0" class="col-md-12 no-record">
+                        No records found
+                    </div> 
+                    
+                    <!-- BEGIN ORDER1 -->
+                    <div *ngFor="let order of more_than_hour_bookings" class="order-box">
+                        <a (click)="openOrderDetails(order.reservable_id)">
+                            <div class="col-md-3 default-order-no">
+                                <i class="fa fa-newspaper-o"></i><br/>
+                                {{ order.order_code }}
+                            </div>
+                        </a>    
+                        <div class="col-md-9 order-info">
+                            <div class="col-md-5">
+                                <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                            </div>
+                            <div class="col-md-7">
+                                <i class="fa fa-user"></i> {{ order.customer_name }}
+                            </div>
+
+                            <div class="col-md-5" style="margin-top:5px;">
+                                Table - {{ order.table_no }}
+                            </div>
+                            <div class="col-md-7" style="margin-top:5px;">
+                                No of Person - {{ order.group_size }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ORDER1 -->
+
+                </div>
+            </div>
+        </div>
+        <!-- END BOOKING -->
+
+        <!-- BEGIN WALK-IN -->
+        <div class="col-md-4">
+            <div class="portlet light bordered" style="padding:0px;">
+                <div class="portlet-title" style="padding:10px 10px 0px 10px; border-bottom: none;">
+                    <div class="caption font-green-sharp">
+                        <span class="caption-subject bold uppercase">WALK-IN</span>
+                        <span class="caption-helper hide"></span>
+                    </div>
+                    <div *ngIf="walkins?.length > 0" class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-noti" href="#">
+                            {{ walkins?.length }}
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="padding-top: 0px;">
+                    <div *ngIf="walkins?.length == 0" class="col-md-12 no-record" style="border-top:1px solid #eef1f5;">
+                        No records found
+                    </div> 
+                    <div *ngFor="let order of walkins" class="order-box">
+                        <a (click)="openOrderDetails(order.reservable_id)">
+                            <div class="col-md-3 urgent-order-no">
+                                <i class="fa fa-newspaper-o"></i><br/>
+                                {{ order.order_code }}
+                            </div>
+                        </a>
+                        <div class="col-md-9 order-info">
+                            <div class="col-md-5">
+                                <i class="fa fa-clock-o"></i> {{ order.datetime | date: "h:mma" }}
+                            </div>
+                            <div class="col-md-7">
+                                <i class="fa fa-user"></i> {{ order.customer_name }}
+                            </div>
+
+                            <div class="col-md-5" style="margin-top:5px;">
+                                Table - {{ order.table_no }}
+                            </div>
+                            <div class="col-md-7" style="margin-top:5px;">
+                                <!--No of Person - {{ order.group_size }}-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- END WALK-IN -->
+    </div>
+    <!-- END MAIN CONTENT -->
+
+    <fx-modal #modal></fx-modal>
+
+
+    <!-- BEGIN MAIN JS-->
+    <script>
+        // call any jquery or angularjs code ehre
+    </script>
+    <!-- BEGIN MAIN JS -->
+</div>

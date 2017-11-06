@@ -1,0 +1,220 @@
+<!--Add/Edit/Delete Item-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <!-- BEGIN ACTION -->
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">Add items to Menu</span>
+                </div>
+            </div>
+            <!-- END ACTION -->
+
+            <div class="portlet-body mt-element-card mt-element-overlay">
+                <div *ngFor="let alert of alerts">
+                    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+                </div>
+                <form role="form" action="#"  #f="ngForm">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 p-l-0">
+                            <!-- line 1 -->
+                            <div class="row m-0">
+                                <div class="col-xs-12 col-sm-6 p-0">
+                                    <button type="button" class="btn btn-primary m-b-10" (click)="openCopyAnotherDishModal(copyAnotherDishModal)">Copy from another dish</button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 p-0">
+                                    <input type="number" class="form-control" placeholder="Online order inventory" [(ngModel)]="model.online_order_inventory" name="online_order_inventory" #online_order_inventory="ngModel" min="0" required>
+                                </div>
+                            </div>
+                            
+    
+                            <!-- line 2 -->
+                            <div class="mt-card-item m-b-10">
+                                <div class="mt-card-avatar mt-overlay-1">
+                                    <label for="file-input">
+                                        <img class="width_100 image_preview" src="../assets/custom/img/menu/breakfast.png" />
+                                    </label>
+                                    <input style="display: none;" id="file-input" type="file" #input="" (change)="onChangeFile($event)"/>
+                                </div>
+                            </div>
+
+                            <!-- line 3 -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name" [(ngModel)]="model.name" name="dish_name" #dish_name="ngModel" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Description" class="form-control" rows="5" [(ngModel)]="model.description" name="dish_description" #dish_description="ngModel" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="form-control" placeholder="Base price" min="0" [(ngModel)]="dish_sizes[0].price" name="sizes_small" #sizes_small="ngModel" required>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 add_item_section_2">
+                            <!-- multipe select dish -->
+                            <ng-select class="category_select" 
+                                  [active]="default_category_select"
+                                  [multiple]="true"
+                                  [items]="listCategorySelect"
+                                  (data)="refreshDishValue($event)"
+                                  placeholder="Select category"></ng-select>
+
+                            <!-- add ons -->
+                            <div class="add_item_title">Add-ons</div>
+
+                            <!-- list -->
+    
+                            <div *ngIf="!showAddOnsFree">
+                                <div>
+                                    <div class="add_on_title">Free ones <a (click)="showAddOns(addon_type.free_ones, true)">add more</a></div>
+                                    <div class="add_on_items" *ngIf="add_ons_free">
+                                        <div class="add_on_item" *ngFor="let item of add_ons_free; let i = index;">
+                                            {{item.name}}
+                                            <a class="remove" (click)="removeItemAddOns(add_ons_free, i)" ><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="add_on_title">Pay ones <a (click)="showAddOns(addon_type.pay_ones, true)">add more</a></div>
+                                    <div class="add_on_items" *ngIf="add_ons_pay">
+                                        <div class="add_on_item" *ngFor="let item of add_ons_pay">
+                                            {{item.name}}
+                                            <div>${{item.price}}</div>
+                                            <a class="remove" (click)="removeItemAddOns(add_ons_pay, i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- add new  -->
+    
+                            <div class="add_new_add_ons" *ngIf="showAddOnsFree">
+                                <div class="add_new_add_on_title">Choose add-on from your list</div>
+                                <div class="list_add_ons row">
+                                    <div *ngFor="let item of list_add_ons" class="btn-group col-xs-3 col-sm-4" [style.display]="checkHasAddOns(item) ? 'none' : 'block'">
+                                        <button type="button" class="btn btn-primary" [(ngModel)]="add_new_add_check[item.id]" [ngModelOptions]="{standalone: true}" (click)="addItemToAddOnsArray(add_new_add_check[item.id], item)" btnCheckbox>
+                                            {{item.name}}
+                                            <div *ngIf="item.type ==='Pay Ones'" style="border-top: 1px solid #aaa;">
+                                                {{item.price}}
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="add_new_add_on">
+                                    <div class="add_new_add_on_title" style="border: 0">Add new one</div>
+
+                                    <form name="f_add_new_add_on" #f_add_new_add_on="ngForm">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Name of the add on" [(ngModel)]="add_new_add_on.name" name="add_new_add_on_name" #add_new_add_on_name="ngModel" required>
+                                            <div class="input-group-addon input" *ngIf="type_add_ons==='Pay Ones'">
+                                                <input type="number" class="form-control" placeholder="Price" [(ngModel)]="add_new_add_on.price" name="add_new_add_on_price" #add_new_add_on_price="ngModel" min="0" required>
+                                            </div>
+                                            <div class="input-group-addon">
+                                                <button class="btn btn-primary" (click)="addNewAddOns(add_new_add_on, f_add_new_add_on)" [disabled]="!f_add_new_add_on.form.valid">Add</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="accept_add_on text-center m-t-50">
+                                    <button class="btn btn-primary" (click)="acceptAddOns()">Accept</button>
+                                    <button class="btn btn-primary" (click)="showAddOns('', false)">Cancel</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 p-r-0">
+                            <!-- size -->
+                            <div class="add_item_title">Set the prizes for sizes (if applies)</div>
+                            <div class="form-group">
+                                <div class="input-group price_size">
+                                    <div class="input-group-addon">Small</div>
+                                    <input type="number" class="form-control" placeholder="price" min="0" [(ngModel)]="dish_sizes[0].price" name="sizes_small" #sizes_small="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group price_size">
+                                    <div class="input-group-addon">Medium</div>
+                                    <input type="number" class="form-control" placeholder="price" min="0" [(ngModel)]="dish_sizes[1].price" name="sizes_medium" #sizes_medium="ngModel">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group price_size">
+                                    <div class="input-group-addon">Larger</div>
+                                    <input type="number" class="form-control" placeholder="price" min="0" [(ngModel)]="dish_sizes[2].price" name="sizes_larger" #sizes_larger="ngModel">
+                                </div>
+                            </div>
+
+                            <!-- spicy level -->
+                            <div class="add_item_title m-t-50">Choose the <span class="cl_red">spicy</span> levels</div>
+                            <div class="btn-group spicy_levels">
+                                <label class="btn" name="spicy_levels1" [(ngModel)]="model.spicy_levels" #spicy_levels1="ngModel" btnRadio="1" required>Normal</label>
+                                <label class="btn" name="spicy_levels2" [(ngModel)]="model.spicy_levels" #spicy_levels2="ngModel" btnRadio="2" required>Midd</label>
+                                <label class="btn" name="spicy_levels3" [(ngModel)]="model.spicy_levels" #spicy_levels3="ngModel" btnRadio="3" required>Hot</label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-12 text-center m-t-50">
+                            <button class="btn btn-primary" [disabled]="!f.form.valid || !model.category_id" (click)="saveAndAddAnotherOne(f)">Save and add another one</button>
+                            <button class="btn btn-primary" [disabled]="!f.form.valid || !model.category_id" (click)="saveAndFinish(f)">Save and finish</button>  
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- modal copy from another dish -->
+
+<div class="modal fade copy_another_dish" bsModal #copyAnotherDishModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="copyAnotherDishModal.hide()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+                <div class="modal-title text-center row">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                        <input class="form-control" type="text" name="search_dish" [(ngModel)]="search_dish" placeholder="Search" (keyup)="copyAnotherDish($event.target.value)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row items" *ngIf="listSearch.length > 0">
+                    <div class="col-xs-6 col-sm-4 col-md-3 item" *ngFor="let item of listSearch">
+                        <div [(ngModel)]="copyAnotherDishModel" btnRadio="{{item.id}}" uncheckable>
+                            <div class="image" [ngStyle]="{'background-image': 'url(' + (item.image ? replaceImageUrl(item.image.path) : defaultImage) + ')'}"></div>
+                            <div class="name">{{item.name}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="listSearch.length === 0">
+                    No search result
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-primary" (click)="copyAnotherDishAccept(copyAnotherDishModel, copyAnotherDishModal)" [disabled]="!copyAnotherDishModel">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,242 @@
+<div class="row">
+    <div class="col-md-12">
+    <form role="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm">
+        <div class="portlet light">
+            <!-- BEGIN ACTION -->
+            
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">Order Settings</span>
+                </div>
+                <div class="actions" style="float:right;">
+                    <div class="btn-group">
+                        <!-- <a class="btn btn-primary" (click)="saveData()">{{action}} it</a> -->
+                        <button class="btn btn-primary" type="submit">{{action}} it</button>
+<!--                         <a class="btn btn-sm btn-primary dropdown-toggle" href="javascript:;" data-toggle="dropdown"> Actions
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-pencil"></i> Edit </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-trash-o"></i> Delete </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-ban"></i> Ban </a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="javascript:;"> Make admin </a>
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
+            </div>
+            <!-- END ACTION -->
+
+            <div class="portlet-body">
+                <!-- BEGIN RESERVATION TIME -->
+                <div class="row">
+                    <div *ngFor="let alert of alerts" class="col-lg-12">
+                      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+                    </div>
+                </div>
+                <h4>Set reservation time range</h4>
+                <p>Select the time range you wish to allow for table reservations</p>
+                <div class="row">
+                    <div class="col-md-12" style="margin:0px;">
+                        <form class="form" role="form">
+                            <div class="col-md-3">
+                                <label class="control-label">Start Time</label>
+                                <timepicker [(ngModel)]="timeStart" name="timeStart"></timepicker>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">End Time</label>
+                                <timepicker [(ngModel)]="timeStop" name="timeStop"></timepicker>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- END RESERVATION TIME -->
+                <hr/>
+                <!-- BEGIN TABLE -->
+                <div class="row">
+                    <div class="col-md-12" style="margin:0px;">
+                        <h4>Set reservation time slot and assign tables that can be reserved</h4>
+                        <p>Select the amount of time allowed for each table to be reserved, and assign the number of tables that can be reserved to each time slot</p>
+                            <div class="col-md-6">
+                                <div class="form-group mt-repeater">
+                                    <div class="row mt-repeater-row"> 
+                                        <div class="col-md-12">
+                                            <label class="control-label">Average serving time (hour)&nbsp;</label>
+                                            <i class="fa fa-question-circle" aria-hidden="true" [popover]="popTemplate" popoverTitle="Average serving time" placement="right" triggers="mouseenter:mouseleave"></i>
+                                            
+                                            <ng-select
+                                              [items]="items"
+                                              [active]="[items[setting.servingtime?(setting.servingtime-1):0]]"
+                                              (data)="refreshValue($event)"
+                                              (selected)="selected($event)"
+                                              placeholder="No number selected">
+                                            </ng-select>
+                                
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row mt-repeater-row" *ngFor="let item of tables; let i = index">
+                                        <div class="col-md-5">
+                                            <label class="control-label">Table Number</label>
+                                            <input type="text" placeholder="Table Number" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.table_no" required />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="control-label">Capacity</label>
+                                            <input type="text" placeholder="3" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.capacity" required /> 
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="control-label">Reserved</label>
+                                            <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.is_reserved" class="form-control ng-untouched ng-pristine ng-valid" style="width: 25px;height:25px;">
+                                        </div>
+                                        <div class="col-md-1" *ngIf="i">
+                                            <a (click)="removeTable(i)" data-repeater-delete class="btn btn-danger mt-repeater-delete">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                        <br/>
+                                    <a (click)="addTable()" data-repeater-create class="btn btn-primary mt-repeater-add">
+                                        <i class="fa fa-plus"></i> Add another table</a>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                <!-- END TABLE -->
+                <hr/>
+                <!-- BEGIN SPECIAL TIME -->
+<!--                 <div class="row">
+                    <div class="col-md-12" style="margin:0px;">
+                        <h4>Special offers (time based) <i class="fa fa-question-circle" aria-hidden="true" [popover]="popTemplate" popoverTitle="Special offers (time based)" placement="right" triggers="mouseenter:mouseleave"></i>
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" placeholder="Offer name (Happy hour)" class="form-control input-nt" name="offername" [(ngModel)]="setting.offername" />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" *ngFor="let specialTime of specialTimes; let i = index">
+                            <div class="col-md-5">
+                                <label class="control-label">Date</label>
+                                <input class="form-control input-nt" (click)="show[i] = true" value="Click here to choice Date" value="{{ specialTime.date | date:'fullDate' }}" placeholder="Click here to change day" name="dateStart">
+                                <datepicker *ngIf="show[i]" [(ngModel)]="specialTime.date" [showWeeks]="true" (selectionDone)="show[i] = false" name="dateStart">
+                                </datepicker>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Start Time</label>
+                                <timepicker [(ngModel)]="specialTime.hourStart" name="hourStart"></timepicker>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">End Time</label>
+                                <timepicker [(ngModel)]="specialTime.hourStop" name="hourStop"></timepicker>
+                            </div>
+                            <div class="col-md-1"  *ngIf="i">
+                                <a (click)="removeDay(i)" data-repeater-delete class="btn btn-danger mt-repeater-delete">
+                                    <i class="fa fa-close"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row mt-repeater-row"> 
+                            <div class="col-md-8">
+                                <div>
+                                    <a (click)="addDay()" data-repeater-create class="btn btn-primary mt-repeater-add"><i class="fa fa-plus"></i> Add another day</a>
+                                </div><br>
+                                <label class="mt-checkbox col-md-6"> Repeat
+                                    <input type="checkbox" value="1" name="cbRepeat" [(ngModel)]="setting.cbRepeat"/>
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" placeholder="Set discount porcentaje" class="form-control input-nt" name="discount" [(ngModel)]="setting.discount" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <hr/>
+-->
+                <!-- END SPECIAL TIME -->
+                
+                <!-- BEGIN OUTPUT -->
+                <div class="row">
+                    <div class="col-md-12" style="margin:0px;">
+                        <h4>Orders Output</h4>
+                        <p>Select the medium which you wish to receive your incoming orders</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mt-repeater">
+                                    <div class="row mt-repeater-row"> 
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="mt-checkbox"> Email
+                                                        <input type="checkbox" value="1" name="cbEmail" [(ngModel)]="setting.cbEmail" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="mt-checkbox"> Print
+                                                        <input type="checkbox" value="1" name="cbPrint" [(ngModel)]="setting.cbPrint" disabled />
+                                                        <span></span>
+                                                    </label>
+                                                    <i class="fa fa-question-circle" aria-hidden="true" [popover]="popTemplate" popoverTitle="Print ?" placement="right" triggers="mouseenter:mouseleave"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <br/>
+                                    <div class="row mt-repeater-row"> 
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="mt-checkbox"> Phone
+                                                        <input type="checkbox" value="1" name="cbPhone" [(ngModel)]="setting.cbPhone" disabled />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="mt-checkbox"> Notification
+                                                        <input type="checkbox" value="1" name="cbNotification" [(ngModel)]="setting.cbNotification" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <!-- <a class="btn btn-primary col-md-6 col-lg-6" (click)="saveData()">{{action}} the changes</a> -->
+                                <button class="btn btn-primary col-md-3 col-lg-3" type="submit">{{action}} the changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OUTPUT -->
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+<template #popTemplate>
+    <div class="row">
+        <div class="col-md-12">
+            <p>The time offer, is a offer that based on time, like for example:</p>
+            <p>Happy hours Webnesday from 8 AM to 12 AM</p>
+            <p>You also can make it repeat all the week just selecting the repeat option</p>
+        </div>
+    </div>
+</template>

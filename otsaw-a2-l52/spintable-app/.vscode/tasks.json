@@ -1,0 +1,11 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "sass",
+    "isShellCommand": true,
+    // "args": ["src/sass/layouts/layout.scss","src/assets/custom/layout.css"],
+    // "args": ["src/sass/layouts/themes/light.scss","src/assets/custom/theme.css"],
+    "args": ["src/sass/layouts/custom.scss","src/assets/custom/custom.css"],
+    "showOutput": "always"
+}
